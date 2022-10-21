@@ -1,0 +1,52 @@
+<!-- List View EJS Template
+    SEE THE /js/views/partials/example_output.html to see what your output should look like. Your LMS1 output might be slightly different, integrate the concepts into 
+    your current implementation as well as you can.
+
+    Watch the class video to finish this off, but try to do it yourself first!
+    Note that you must learn how to do this as the next assignment you will do it yourself!
+  -->
+<table id='<%=view.list.id%>' class="<%=view.list.tableClasses%>">
+
+  <!-- Output Table Headers -->
+  <tr class="trow">
+
+    <% view.columns.forEach( function(col, key){ %>
+
+
+      <th class="thead sortable <%=view.list.thClasses%>" data-name="<%=col.name%>">
+        <%=col.label%>
+          <i id="<%=col.name%>-asc" class="bi bi-arrow-up" aria-hidden="true" style="display:none"></i>
+          <i id="<%=col.name%>-desc" class="bi bi-arrow-down" aria-hidden="true" style="display:none"></i>
+      </th>
+
+      <% }) %>
+
+        <th class="thead <%=view.list.thClasses%>"> Actions </th>
+  </tr>
+  <!-- Output Table data rows
+    This process uses a loop within a loop.  Iterate the 'data' item passed into the view renderer.
+    To output the column TD elements, iterate the 'view.columns' (see view model list 'columns' array) and use the 'name' attribute to get the value from the data item
+
+    Remember to output a 'data-id' attribute into each row so you can retrieve and utilize it later when you click on the delete and edit icons
+    
+  -->
+  <tbody>
+    <% data.forEach( function(currentTeam){ %>
+      <tr>
+        <% view.columns.forEach( function(col, key){ %>
+          <td>
+            <%=currentTeam[col.name]%>
+          </td>
+          <% }) %>
+            <td>
+              <span class="bi bi-pencil-square"></span>
+              &nbsp;&nbsp;
+              <span class="bi bi-x-square-fill" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"
+                data-id="<%=currentTeam.id%>" data-name="<%=currentTeam.name%>">
+              </span>
+            </td>
+      </tr>
+      <% console.log(currentTeam.id)})%>
+  </tbody>
+
+</table>

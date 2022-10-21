@@ -1,0 +1,88 @@
+:root {
+    --green: #0c7139;
+    --blue: #0b57a4;
+    --purple: #67328f;
+    --red: #9c0f17;
+    --orange: #f06730;
+    --yellow: #f59431;
+}
+#teams {
+    text-shadow: 0 0 8px rgb(0, 242, 255);
+}
+
+tbody > tr:hover, tbody > tr:focus{
+    background-color: white;
+    color: white;
+    cursor:pointer;
+    font-weight: bolder;
+}
+
+body {
+    font-weight: 300;
+    background: url('../assets/gradient-network-connection.webp') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 42px;
+    line-height: 2;
+    letter-spacing: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+dt, b {
+    font-weight: 600;
+}
+a:link {
+    text-decoration: none;
+}
+
+.sidebar-list > li:active {
+    border-color: var(--blue);
+}
+
+a.navbar-brand:after {
+content: "";
+display: block;
+position: absolute;
+left: 16rem;
+top: 50%;
+transform: translateY(-50%);
+height: 1.5rem;
+width: 0.0625rem;
+background-color: var(--cds-ui-03,#e0e0e0);
+}
+
+.color-footer {
+    display: block;
+    height: 0.5rem;
+}
+
+.bg-green {
+    background-color: var(--green);
+}
+
+.bg-blue {
+    background-color: var(--blue);
+}
+
+.bg-purple {
+    background-color: var(--purple);
+}
+
+.bg-red {
+    background-color: var(--red);
+}
+
+.bg-orange {
+    background-color: var(--orange);
+}
+
+.bg-yellow {
+    background-color: var(--yellow);
+}
