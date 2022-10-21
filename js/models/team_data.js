@@ -8,7 +8,8 @@
          coachEmail: "ken.jenson@uvu.edu",
          coachLicenseLevel: 1,
          league: 1,
-         division: 1
+         division: 1,
+         teamPhoto: "/assets/comma.jpg"
        },
         {
          id: 2,
@@ -19,7 +20,8 @@
          coachEmail: "peter.rabbit@uvu.edu",
          coachLicenseLevel: 1,
          league: 1,
-         division: 2
+         division: 2,
+         teamPhoto: "assets/comma.jpg"
        },
        {
          id: 3,
@@ -30,6 +32,7 @@
          coachEmail: "harry.dirty.dog@uvu.edu",
          coachLicenseLevel: 2,
          league: 1,
-         division: 2
+         division: 2,
+         teamPhoto: "assets/comma.jpg"
        }
       ]
