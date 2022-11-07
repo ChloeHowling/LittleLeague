@@ -6,9 +6,9 @@
     --orange: #f06730;
     --yellow: #f59431;
 }
-#teams {
+/* #teams {
     text-shadow: 0 0 8px rgb(0, 242, 255);
-}
+} */
 
 tbody > tr:hover, tbody > tr:focus{
     background-color: white;

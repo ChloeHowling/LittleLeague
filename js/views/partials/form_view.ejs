@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h4 class="edit-modal-title">
+        <%=that.currentItemId?viewModel.editFormTitle:viewModel.addFormTitle%>
+    </h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <form id="<%=viewModel.id%>" autocomplete="off" method="<%=viewModel.method%>"
+                action="<%=viewModel.actionUrl%>" novalidate>
+                <div class="form-row">
+                    <% viewModel.fields.slice(1).forEach( function(field) { %>
+                        <div class="mt-3" style="padding-right:.25rem">
+                            <label for="<%=field.name%>"><%=field.label%></label>
+                            <input name="<%=field.name%>" id="<%=field.name%>" defaultValue="<%=field.defaultValue%>" <%
+                                if(that.currentItemId) {%>
+                                    value="<%=view[field.name]%>"
+                                <% } %>
+                                <% Object.keys(field.attributes).forEach( function(key, index) { %>
+                                    <%=key%>="<%=Object.values(field.attributes)[index]%>"
+                                <% }) %>
+                                <% if (field.validation.required) { %>
+                                    required>
+                                <% } %>
+                                <div class="invalid-feedback">
+                                    Please provide a valid input.
+                                </div>
+                        </div>
+                    <% }) %>
+                </div>
+                <div class="modal-footer px-0 mt-4">
+                    <div id="cancelAlertContainer" class="mt-2"></div>
+                    <button id="cancelButton" type="button" class="btn btn-danger">Cancel</button>
+                    <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <!--col-->
+    </div>
+    <!--row-->
+</div>

@@ -1,0 +1,23 @@
+{
+  "name": "littleleague",
+  "version": "1.0.0",
+  "description": "testing npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "open index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChloeHowling/LittleLeague.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChloeHowling/LittleLeague/issues"
+  },
+  "homepage": "https://github.com/ChloeHowling/LittleLeague#readme",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4"
+  }
+}
