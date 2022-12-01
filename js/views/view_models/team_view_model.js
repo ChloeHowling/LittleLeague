@@ -45,17 +45,17 @@ var teamViewModel = {
             },
             {
                 label: "Coach Name",
-                name: "coachName",
+                name: "coach_name",
                 popover: "true"
             },
             {
                 label: "Coach Email",
-                name: "coachEmail",
+                name: "email",
                 popover: "true"
             },
             {
                 label: "Coach Phone",
-                name: "coachPhone",
+                name: "phone",
                 popover: "true"
             }
         ]
@@ -104,68 +104,95 @@ var teamViewModel = {
             },
             {
                 label: "Coach Name",
-                name: "coachName",
-                tag: "input",
-                defaultValue: "",
+                name: "coach_id",
+                tag: "select",
                 attributes: {
-                    type: "text",
-                    placeholder: "CoachName",
                     class: "form-control"
                 },
                 validation: {
                     required: true
-                }
+                },
+                lookupName: "coaches"
             },
             {
-                label: "Coach Phone",
-                name: "coachPhone",
-                tag: "input",
-                defaultValue:"",
+                label: "League",
+                name: "league_id",
+                tag: "select",
                 attributes: {
-                    type: "text",
-                    placeholder: "Coach phone",
-                    //pattern will allow you to customize your validation.
-                    pattern: '[\+]?[1 ]?[-]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}',
-                    //use the title tag to explain the format required
-                    title: 'Phone Number (Format: +1 (999)999-9999)',
                     class: "form-control"
                 },
                 validation: {
                     required: true,
-                    requiredMessage: "Coach Phone is required"
-                }
-            },
-            {
-                label: "Coach Email",
-                name: "coachEmail",
-                tag: "input",
-                defaultValue:"",
-                attributes: {
-                    type: "email",
-                    placeholder: "Coach Email",
-                    class: "form-control"
                 },
-                validation: {
-                    required: true,
-                    requiredMessage: "Coach Email is required"
-                }
-            },
+                lookupName: "leagues"
+            }, 
+            // {
+            //     label: "Coach Phone",
+            //     name: "phone",
+            //     tag: "input",
+            //     defaultValue:"",
+            //     attributes: {
+            //         type: "text",
+            //         placeholder: "Coach phone",
+            //         //pattern will allow you to customize your validation.
+            //         pattern: '[\+]?[1 ]?[-]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}',
+            //         //use the title tag to explain the format required
+            //         title: 'Phone Number (Format: +1 (999)999-9999)',
+            //         class: "form-control"
+            //     },
+            //     validation: {
+            //         required: true,
+            //         requiredMessage: "Coach Phone is required"
+            //     }
+            // },
+            // {
+            //     label: "Coach Email",
+            //     name: "email",
+            //     tag: "input",
+            //     defaultValue:"",
+            //     attributes: {
+            //         type: "email",
+            //         placeholder: "Coach Email",
+            //         class: "form-control"
+            //     },
+            //     validation: {
+            //         required: true,
+            //         requiredMessage: "Coach Email is required"
+            //     }
+            // },
             {
-                label: "Team Notes",
-                name:"notes",
+                label: "University",
+                name:"university",
                 tag: "input",
                 defaultValue:"",
                 attributes: {
                     type: "text",
-                    placeholder: "Enter your Team notes here",
+                    placeholder: "Enter your Team university here",
                     class: "form-control"
                 },
                 validation: {
                     required: false
                 }
                 
-            } 
+            },
         ]
+    },
+    lookups: {
+        coach: {
+            label: "Coach",
+            lookupName: "coaches",
+            tag: "select",
+            defaultValue: "-1",
+            attributes: {
+                id: "coach_id",
+                name: "coach_id",
+                placeholder: "Select a coach"
+            },
+            validation: {
+                required: true,
+                requireMessage: "Coach is required"
+            }
+        },
     }
 }
 export default teamViewModel;

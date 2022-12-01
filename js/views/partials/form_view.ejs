@@ -14,15 +14,25 @@
                     <% viewModel.fields.slice(1).forEach( function(field) { %>
                         <div class="mt-3" style="padding-right:.25rem">
                             <label for="<%=field.name%>"><%=field.label%></label>
-                            <input name="<%=field.name%>" id="<%=field.name%>" defaultValue="<%=field.defaultValue%>" <%
+                            <<%=field.tag%> name="<%=field.name%>" id="<%=field.name%>" defaultValue="<%=field.defaultValue%>" <%
                                 if(that.currentItemId) {%>
                                     value="<%=view[field.name]%>"
                                 <% } %>
-                                <% Object.keys(field.attributes).forEach( function(key, index) { %>
-                                    <%=key%>="<%=Object.values(field.attributes)[index]%>"
-                                <% }) %>
+                                <% for(let key in field.attributes) { %>
+                                    <%=key%>="<%=field.attributes[key]%>"
+                                <% } %>
                                 <% if (field.validation.required) { %>
-                                    required>
+                                    required
+                                <% } %>
+                                >
+                                <% if(field.tag == "select") { %>
+                                    <% let coaches = that.storage.lookups[field.lookupName];%>
+                                    <%for(coach in coaches) {%>
+                                        <option value="<%=coaches[coach].value%>" 
+                                            <% if(coaches[coach].value == view[field.name]) {%>selected <%}%>>
+                                            <%=coaches[coach].label%></option>
+                                        <% } %>
+                                </select>
                                 <% } %>
                                 <div class="invalid-feedback">
                                     Please provide a valid input.

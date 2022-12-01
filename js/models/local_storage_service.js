@@ -1,68 +1,73 @@
-export default class LocalStorageService {
-    "use strict"
-    constructor(data, entity, entitySingle, options = {}) {
+import StorageService from "./storage_service.js";
 
-        this._entity = entity;
-        this._entitySingle = entitySingle;
+export default class LocalStorageService extends StorageService {
+    constructor(data, lookup, entity, entitySingle, options = {}) {
+        super(data, lookup, entity, entitySingle, options);
 
-        this.initModel(data, options);
+        // this.retrieve();
     }
-
-    //Getters and Setters
+    get lookups() {
+        return super.lookups;
+    }
+    get data() {
+        return super.data;
+    }
+    set data(data) {
+        super.data = data;
+    }
     get entitySingle() {
-        return this._entitySingle;
+        return super.entitySingle;
     }
     get entity() {
-        return this._entity;
+        return super.entity;
     }
     get sortCol() {
-        return this.model.options.sortCol;
+        return super.sortCol;
     }
     set sortCol(col) {
-        this.model.options.sortCol = col;
-        this.store()
+        super.sortCol = col;
+        this.store();
     }
     get sortDir() {
-        return this.model.options.sortDir;
+        return super.sortDir;
     }
     set sortDir(dir) {
-        this.model.options.sortDir = dir;
-        this.store()
-    }
-    set filterStr(filterStr) {
-        this.model.options.filterStr = filterStr;
-        this.store()
+        super.sortDir = dir;
+        this.store();
     }
     get filterStr() {
-        return this.model.options.filterStr;
+        return super.filterStr;
     }
-    get size() {
-        return this.model.data.length;
+    set filterStr(filterStr) {
+        super.filterStr = filterStr;
+        this.store();
     }
-
-
+    get filterCol() {
+        return super.filterCol;
+    }
+    set filterCol(filterCol) {
+        super.filterCol = filterCol;
+        this.store();
+    }
+    get limit() {
+        return super.limit;
+    }
+    set limit(limit) {
+        super.limit = limit;
+        this.store();
+    }
+    get offset() {
+        return super.offset;
+    }
     set options(opt) {
-        this.model.options = {
-            sortCol: null,
-            sortDir: "asc",
-            filterCol: "",
-            filterStr: ""
-        };
-        //merge any passed in options
-        this.model.options = Object.assign(this.model.options, opt);
+        super.options = opt;
+        this.store();
+    }
+
+    get size() {
+        return this.data.length;
     }
     //CRUD FUNCTIONS
-    initModel(data, options) {
-        this.model = {};
-        this.model.data = [];
-        this.options = options;
-        if (data != null) {
-            this.model.data = data;
-        }
-        this.origModel = this.cloneObject(this.model);
-
-        this.retrieve();
-    }
 
     async list() {
         this.sort(this.sortCol, this.sortDir, true);
@@ -73,15 +78,15 @@ export default class LocalStorageService {
             return this.filter(filterObj);
         }
 
-        return this.model.data;
+        return this.data;
     }
 
     async create(obj) {
-        this.model.data.push(obj);
+        this.data.push(obj);
         this.store();
     }
     async read(getId) {
-        let data = this.model.data.find(element => element.id == getId);
+        let data = this.data.find(element => element.id == getId);
 
         if (data === undefined)
             return null;
@@ -90,13 +95,13 @@ export default class LocalStorageService {
     }
     async update(id, obj) {
         if (id == null) {
-            obj.id = this.model.data.at(-1).id + 1;
-            this.model.data.push(obj);
+            obj.id = this.data.at(-1).id + 1;
+            this.data.push(obj);
             this.store();
         } else {
             let index = this.getItemIndex(id);
             if (index != -1) {
-                this.model.data[index] = obj;
+                this.data[index] = obj;
                 this.store();
             }
         }
@@ -105,14 +110,14 @@ export default class LocalStorageService {
 
     async delete(removeId) {
         let index = this.getItemIndex(removeId);
-        this.model.data.splice(index, 1)
+        this.data.splice(index, 1)
 
         this.store();
     }
 
     //LocalStorage Functions
     async reset() {
-        this.model = this.cloneObject(this.origModel);
+        this.model = this.utils.cloneObject(this.origModel);
         this.clear();
     }
     async clear() {
@@ -122,17 +127,17 @@ export default class LocalStorageService {
     store() {
         localStorage[this.entity] = JSON.stringify(this.model);
     }
-    retrieve() {
-        if (localStorage.getItem(this.entity) !== null) {
-            this.model = JSON.parse(localStorage[this.entity]);
-            return true;
-        }
-        return false;
-    }
+    // retrieve() {
+    //     if (localStorage.getItem(this.entity) !== null) {
+    //         this.model = JSON.parse(localStorage[this.entity]);
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     //Sorting and Filtering Functions
     sort(col, direction, perm = true) {
-        let copy = this.cloneObject(this.model.data);
+        let copy = this.utils.cloneObject(this.data);
         let sorted = copy.sort((a, b) => {
             if (a[col] == b[col])
                 return 0;
@@ -145,7 +150,7 @@ export default class LocalStorageService {
 
         });
         if (perm) {
-            this.model.data = sorted;
+            this.data = sorted;
             this.sortCol = col;
             this.sortDir = direction;
 
@@ -163,20 +168,13 @@ export default class LocalStorageService {
             }
             return true;
         }
-        let result = this.model.data.filter(filterFunc);
-        return this.cloneObject(result);
+        let result = this.data.filter(filterFunc);
+        return this.utils.cloneObject(result);
     }
 
     //Utility functions
     getItemIndex(id) {
-        return this.model.data.findIndex(element => element.id == id);
-
-    }
-    getItem(id) {
-        return this.model.data.find(element => element.id == id);
-    }
-    cloneObject(obj) {
-        return JSON.parse(JSON.stringify(obj));
+        return this.data.findIndex(element => element.id == id);
     }
 
 }

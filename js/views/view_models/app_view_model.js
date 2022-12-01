@@ -1,6 +1,7 @@
 import teamViewModel from './team_view_model.js'
 
 var appViewModel = {
-    viewModel: teamViewModel
+    endPoint: "localhost:8080",
+    viewModel: teamViewModel,
 }
 export default appViewModel;

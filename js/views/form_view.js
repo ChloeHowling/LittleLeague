@@ -8,6 +8,7 @@ export default class FormView extends View {
 
         this.parentView = parentView;
         this.formChanged = false;
+        this.lookupsPopulated=false;
     }
 
     get fields() {
@@ -33,12 +34,24 @@ export default class FormView extends View {
     }
 
     async getViewData() {
+        if(!this.lookupsPopulated) {
+            await this.populateLookups();
+        }
+
         if (this.currentItemId != null) {
             return this.storage.read(this.currentItemId);
         }
-        return null;
+        return {};
     }
 
+    async populateLookups() {
+        for (let field of this.fields) {
+            if("lookupName" in field) {
+                await this.storage.getLookup(field.lookupName);
+            }
+        }
+        this.lookupsPopulated=true;
+    }
     async bindItemEvents(data) {
         // this.$form.submit(this.submit); 
         $("#submitButton").click(this.submit);
@@ -68,9 +81,15 @@ export default class FormView extends View {
             formData.forEach((input) => {
                 obj[input.name] = input.value;
             })
-            this.storage.update(this.currentItemId, obj).then(() => {
-                this.parentView.renderItem();
-            });
+            if (!obj.id) {
+                this.storage.create(obj).then(() => {
+                    this.parentView.renderItem();
+                });
+            } else {
+                this.storage.update(this.currentItemId, obj).then(() => {
+                    this.parentView.renderItem();
+                });
+            }
             this.parentView.closeEditModal();
         }
     }
