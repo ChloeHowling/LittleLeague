@@ -3,12 +3,13 @@ var teamViewModel = {
     entity: "teams",
     entitySingle: "team",
 
+    navId: "teams_nav",
     data: teamData,
     list: {
         deleteModalContainerId: "deleteConfirmation",
         editModalContainerId:"editModal",
         alertContainerId: "alertContainer",
-        wrapperContainerId: "teamPageWrapper",
+        wrapperContainerId: "app_container",
         wrapperTemplateUrl: "js/views/partials/list_page_wrapper.ejs",
         templateUrl: "js/views/partials/list_view.ejs",
         containerId: "tableContainer",

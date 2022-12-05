@@ -1,33 +1,40 @@
-import LocalStorageService from '../models/local_storage_service.js'
-import RestStorageService from '../models/rest_storage_service.js';
+import RestStorageService from '../models/rest_storage_service.js'
 import ListView from '../views/list_view.js'
+import GenericView from '../views/generic_view.js'
+import Router from '../routers/router.js'
 
-export default class AppController
-{
+export default class AppController {
     constructor(appViewModel) {
         this.appViewModel = appViewModel;
-        // TODO: change parameters for LocalStorageService initializer)
-        this.localStorageService = new LocalStorageService(this.data, this.lookups, this.entity, this.entitySingle, this.list.options);
-        // this._view = new ListPageView(this.storageService, this.listViewModel)
-        this.restStorageService = new RestStorageService(this.entity, this.entitySingle, this.list.options, this.appViewModel.endPoint);
+        this.router = new Router(window, appViewModel.routes, appViewModel.navContainerId, appViewModel.navTemplateUrl)
 
-        this._view = new ListView(this.restStorageService, this.appViewModel.viewModel)
+        $("body").on("loadView", (event, route) => {
+            this.loadView(route);
+        })   
     }
-    get data() {return this.appViewModel.viewModel.data;}
-    get lookups() {return this.appViewModel.viewModel.lookups;}
-    get entity() {return this.appViewModel.viewModel.entity;}
-    get entitySingle() {return this.appViewModel.viewModel.entitySingle;}
-
-    get list() {return this.appViewModel.viewModel.list;}
-    get listViewModel() {return this.appViewModel.viewModel;}
+    get $containerId() {
+        return $(`#${this.appViewModel.containerId}`)
+    }
+    loadView(route) {
+        this.$containerId.empty();
+        switch (route.viewType) {
+            case "generic":
+                this._view = new GenericView(route.viewModel)
+                break;
+            case "list":
+                let restStorageService = new RestStorageService(
+                    route.viewModel.entity, 
+                    route.viewModel.entitySingle, 
+                    route.viewModel.list.options, 
+                    this.appViewModel.endPoint
+                );
+                this._view = new ListView(restStorageService, route.viewModel)
+                break;
+        }
+        this.view.render()
+    }
 
     get view() {
         return this._view;
-    }
-    async reset() {
-        await this._view.reset();
-    }
-    async render() {
-        await this._view.render();
     }
 }

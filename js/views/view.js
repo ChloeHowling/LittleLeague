@@ -31,13 +31,9 @@ export default class View {
         });
     }
     async renderTemplate($container, templateUrl, viewData) {
-        //hide the container
-        // $container.empty().hide()
-
-        let templateHtml = await this.getFileContents(templateUrl)
+        let templateHtml = await this.utils.getFileContents(templateUrl)
         $container.html(ejs.render(templateHtml, viewData))
 
-        //show the container
         $container.show()
     }
     async renderWrapper() {
@@ -45,16 +41,6 @@ export default class View {
         this.bindWrapperEvents()
     }
     async renderItem() {
-        
-        // this.$listContainer.empty();
-        // this.data = await this.storage.list();
-        // if (!this.listTemplateHtml.length > 0) {
-        //     this.listTemplateHtml = await this.getFileContents(this.listTemplateUrl);
-        // }
-        // this.$listContainer.html(ejs.render(this.listTemplateHtml, { view: this, data: this.data }));
-        // this.$headerIcon.show();    //show header icon for current sort col and direction (see getter)
-        // this.bindListEvents(this.data);
-
         let viewData =  await this.getViewData();
         await this.renderTemplate(this.$container, this.templateUrl, {viewModel: this.viewModel, that: this, view: viewData});
         
@@ -74,17 +60,7 @@ export default class View {
     async bindWrapperEvents() {
         throw new Error("must implement bindWrapperEvents in sub class!")
     }
-    /*readCachedItem()
-    special function I added to get the currently cached item instead of reading it anew
-    this will be more important later when we are reading from an API.  I don't want to go all the
-    way out to the internet to get a value that is sitting in memory.
-    I use it when rendering the popover and delete modal when the latest information is not really needed
-    */
     readCachedItem(id) {
         return this.storage.getItem(id);
-    }
-    async getFileContents(url) {
-        return await $.get(url);
-
     }
 }

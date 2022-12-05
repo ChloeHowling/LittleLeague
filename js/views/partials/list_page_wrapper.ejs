@@ -1,20 +1,22 @@
-<main class="">
-  <h1 class="text-white">
-    <%=viewModel.listTitle%>
-  </h1>
-  <div class="row">
-    <div class="col-12 d-flex justify-content-start">
-      <input id="searchInput" class=" me-2 p-1" placeholder="Search...">
-      <button id="clearSearch" class="btn btn-secondary me-2">Clear</button>
-      <!-- <button id="resetView" class="btn btn-primary clear-search-btn ml-2">Reset View</button> -->
+<div id="teams" class="container my-5"><br>
+  <main class="">
+    <h1 class="text-white">
+      <%=viewModel.listTitle%>
+    </h1>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-start">
+        <input id="searchInput" class=" me-2 p-1" placeholder="Search...">
+        <button id="clearSearch" class="btn btn-secondary me-2">Clear</button>
+        <!-- <button id="resetView" class="btn btn-primary clear-search-btn ml-2">Reset View</button> -->
+      </div>
     </div>
-  </div>
-  <div class="col-12">
-    <div id="<%=viewModel.alertContainerId%>" class="mt-2"></div>
-    <div id="<%=viewModel.containerId%>" class="mt-2"></div>
-    <button id="newButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<%=viewModel.editModalContainerId%>">Add New Team</button>
-  </div>
-  </div>
+    <div class="col-12">
+      <div id="<%=viewModel.alertContainerId%>" class="mt-2"></div>
+      <div id="<%=viewModel.containerId%>" class="mt-2"></div>
+      <button id="newButton" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#<%=viewModel.editModalContainerId%>">Add New</button>
+    </div>
+</div>
 </main>
 
 <div class="modal" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
@@ -45,4 +47,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

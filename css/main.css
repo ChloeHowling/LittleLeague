@@ -19,7 +19,7 @@ tbody > tr:hover, tbody > tr:focus{
 
 body {
     font-weight: 300;
-    background: url('../assets/gradient-network-connection.webp') no-repeat center center fixed;
+    background: url('../assets/rainbow.jpeg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
