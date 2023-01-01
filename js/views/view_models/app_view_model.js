@@ -37,6 +37,7 @@ let routes = [
 let appViewModel = {
     containerId: "app_container",
     endPoint: "localhost:8080",
+    // endPoint: "ct3660fall22api-env-1.eba-9smftc9p.us-west-1.elasticbeanstalk.com",
     routes: routes,
     navContainerId: "navContainer",
     navTemplateUrl: "./js/views/partials/nav.ejs"
